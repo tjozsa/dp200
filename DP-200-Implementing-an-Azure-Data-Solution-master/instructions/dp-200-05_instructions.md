@@ -12,16 +12,16 @@
 The students will be able to provision an Azure SQL Database and Azure Synapse Analytics server and be able to issue queries against one of the instances that are created. They will be also be able to integrate a data warehouse with a number of other data platform technologies and use PolyBase to load data from one data source into Azure Synapse Analytics.
 
 ## Lab objectives
-  
+
 After completing this lab, you will be able to:
 
 1. Use Azure SQL Database
-1. Describe Azure Synapse Analytics 
-1. Create and query Azure Synapse Analytics 
-1. Use PolyBase to load data into Azure Synapse Analytics 
+1. Describe Azure Synapse Analytics
+1. Create and query Azure Synapse Analytics
+1. Use PolyBase to load data into Azure Synapse Analytics
 
 ## Scenario
-  
+
 You are the senior data engineer at AdventureWorks, and you are working with your team to transition a relational database system from an on-premises SQL Server to a Azure SQL Database located in Azure. You will begin by creating an instance of Azure SQL Database with the company's sample database. Your intention is to hand this instance of to a junior data engineer to perform some testing of departmental databases.
 
 You will then provision Azure Synapse Analytics server and test that the provisioning of the server is successful by testing a sample database with a series of queries. You will then use PolyBase to load a dimension table from Azure Blob to test that the integration of this data platform technology with Azure Synapse Analytics.
@@ -29,9 +29,9 @@ You will then provision Azure Synapse Analytics server and test that the provisi
 At the end of this lad, you will have:
 
 1. Used Azure SQL Database
-1. Described Azure Synapse Analytics 
-1. Created and queryied Azure Synapse Analytics 
-1. Used PolyBase to doad data into Azure Synapse Analytics 
+1. Described Azure Synapse Analytics
+1. Created and queryied Azure Synapse Analytics
+1. Used PolyBase to doad data into Azure Synapse Analytics
 
 > **IMPORTANT**: As you go through this lab, make a note of any issue(s) that you have encountered in any provisioning or configuration tasks and log it in the table in the document located at _\Labfiles\DP-200-Issues-Doc.docx_. Document the Lab number, note the technology, Describe the issue, and what was the resolution. Save this document as you will refer back to it in a later module.
 
@@ -40,7 +40,7 @@ At the end of this lad, you will have:
 Estimated Time: 15 minutes
 
 Individual exercise
-  
+
 The main task for this exercise are as follows:
 
 1. Create and configure a SQL Database instance.
@@ -56,19 +56,19 @@ The main task for this exercise are as follows:
 1. From the **Create SQL Database** screen, create an Azure SQL Database with the following settings:
 
     - In the Project details section, type in the following information
-    
+
         - **Subscription**: the name of the subscription you are using in this lab
 
         - **Resource group**: **awrgstudxx**, where **xx** are your initials.
 
-    - Click on the  **Additional setting** tab, click **Sample** . The AdventureworksLT sample database is selected automatically. 
-    
+    - Click on the  **Additional setting** tab, click **Sample** . The AdventureworksLT sample database is selected automatically.
+
     - Click the **Basics** tab once this has been done.
-    
+
     - In the Database details section, type in the following information
-    
+
         - Database name: type in **AdventureworksLT**
-     
+
         - Server: Create a new server by clicking **Create new** with the following settings and click on **OK**:
             - **Server name**: **sqlservicexx**, where **xx** are your initials
             - **Server admin login**: **xxsqladmin**, where **xx** are your initials
@@ -80,7 +80,7 @@ The main task for this exercise are as follows:
                 ![Creating a server instance in the Azure portal](Linked_Image_Files/M05-E01-T01-img1.png)
 
             - Leave the remaining settings to their defaults, and then click on **OK**
-            
+
 
     ![Creating a SQL Database in the Azure portal](Linked_Image_Files/M05-E01-T01-img02.png)
 
@@ -93,11 +93,11 @@ The main task for this exercise are as follows:
 > **Result**: After you completed this exercise, you have an Azure SQL Database instance
 
 ## Exercise 2: Describe Azure Synapse Analytics
-  
+
 Estimated Time: 15 minutes
 
 Individual exercise
-  
+
 The main tasks for this exercise are as follows:
 
 1. Create and configure a Azure Synapse Analytics instance.
@@ -114,78 +114,67 @@ The main tasks for this exercise are as follows:
 
 1. In the New blade, navigate to the **Search the Marketplace** text box, and type the word **Synapse**. Click **Azure Synapse Analytics (formerly SQL DW)** in the list that appears.
 
-1. In the **Azure Synapse Analytics (formerly SQL DW)** blade, click **Create**.
+1. In the **Azure Synapse Analytics** screen, click **+ Add** to create a Synapse Workspace.
 
-1. From the **SQL Data Warehouse** blade, create an Azure Synapse Analytics  with the following settings:
+1. From the **Create Synapse workspace** blade, create an Azure Synapse Analytics workspace with the following settings:
 
     - In the Project details section, type in the following information
 
         - **Subscription**: the name of the subscription you are using in this lab
 
-        - **Resource group**: **awrgstudxx**, where **xx** are your initials.
+        - **Resource group**: **awrgstudxx**, where **xx** are your initials
 
-    - In **Additional setting** tab, under data source, click **Sample**.
+    - In the Workspace details section, type in the following information
 
-    - Click the **Basics** tab once this has been done.
-    
-    - In the Database details section, type in the following information
+        - **Workspace name**: **asaxx**, where **xx** are your initials.
 
-        - **Database warehouse name**: **Warehousexx**, where **xx** are your initials.
+        - **Select Data Lake Storage Gen2**, mark From Subscription
 
-        - **Server**: Create a new server by clicking **Create new** with the following settings and click on **OK**:
-            - **Server name**: **dwhservicexx**, where **xx** are your initials
-            - **Server admin login**: **xxsqladmin**, where **xx** are your initials
-            - **Password**: **Pa55w.rd**
-            - **Confirm Password**: **Pa55w.rd**
-            - **Location**: choose a **location** near to you.
-            - Select the checkbox to Allow Azure services to access server
-            - click on **OK**
+        - **File System name**, either select an existing container, or click **create new** and type dw1 or any other name you wish to use
 
-                ![Creating a server instance in the Azure portal](Linked_Image_Files/M05-E02-T01-img01.png)
+        > Please note that the first time when you create a workspace you will be given the option to automatically map the Storage Blob Data Contributor role to the storage. ** DO CHECK THIS OPTION ** as it saves time for you and you. On any subsequent workspace creation you will only see the note that this option was previously selected for the storage, and thus the mapping will occur, or is in place already.
 
-    - Performance Level: Click **Select performance level** and select **Gen2 DW100C**.
+      ![](assets/markdown-img-paste-20201218055435882.png)
 
-        ![Configuring performance of Azure Synapse Analytics in the Azure portal](Linked_Image_Files/M05-E02-T01-img02.png)
+1. In the **Create Azure Synapse Workspace** screen, click **Review + create**.
 
-    - Click **Apply**. the following configuration is shown.
-
-        ![Configuring Azure Synapse Analytics in the Azure portal](Linked_Image_Files/M05-E02-T01-img03.png)
-
-1. In the **SQL Data Warehouse** screen, click **Review + create**.
-
-1. In the **SQL Data Warehouse** blade, click **Create**.
+1. In the **Create Azure Synapse Workspace** blade, click **Create**.
 
    > **Note**: The provision will takes approximately 7 minutes.
 
-### Task 2: Configure the Server Firewall
+### Task 2: Create dedicated SQL Pool
 
-1. In the Azure portal, in the blade, click **Resource groups**, and then click **awrgstudxx**, and then click on **awdlsstudxx**, where **xx** are your initials
+1. Once your resource deployment is ready, you can navigate to the resource. Or you can always search for Azure Synapse Analytics in the marketplace to find the service and your workplaces.
 
-1. Click on **dwhservicexx**, where **xx** are your initials.
+1. Open your workplace from the list of workplaces. You should see a similar screen:
 
-1. In the **dwhservicexx** screen, click on **Firewalls and virtual networks**.
+![](assets/markdown-img-paste-20201218064758348.png)
 
-1. In the dwhservicexx - Firewalls and virtual networks screen, click on the option **+ Add client IP**, and then click on **Save**. On the success screen click **OK**.
+1. You can create a database instance from the portal by clicking on **+ New dedicated SQL Pool**.
 
-    ![Configuring Azure Synapse Analytics firewall settings in the Azure portal](Linked_Image_Files/M05-E02-T02-img01.png)
+1. Provide the following details:
 
-    > **Note**: You will receive a message stating that the the server firewall rules have been successfully updated
+- Dedicated SQL pool name: **DWDB**
 
-1. Close down the Firewalls and virtual networks screen.
+- Performance level: **DW100c**
 
-> **Result**: After you completed this exercise, you have created an Azure  Synapse Analytics  instance and configures the server firewall to enable connections against it.
+1. In the **Create dedicated SQL pool** screen, click **Review + create**.
 
-### Task 3: Pause the Warehousexx database
-
-1. Click on **Warehousexx**, where **xx** are your initials.
-
-1. In the **Warehousexx (dwhservicexx/Warehousexx)** screen, click on **Pause**.
-
-1. In the Pause Warehousexx screen, click **Yes**
+1. In the **Create dedicated SQL pool** blade, click **Create**.
 
 
+### Task 3: You can pause any time the database
 
-## Exercise 3: Creating an Azure Synapse Analytics database and tables
+> Don't acually do this, just make note of this.
+
+1. Click on **DWDB** on the **Synapse workspace** screen
+
+1. In the **DWDB** screen, click on **Pause**.
+
+1. In the Pause DWDB screen, click **Yes**
+
+
+## Exercise 3: Creating an Azure Synapse Analytics tables
 
 Estimated Time: 25 minutes
 
@@ -195,13 +184,13 @@ The main tasks for this exercise are as follows:
 
 1. Install SQL Server Management Studio and connect to a data warehouse instance.
 
-1. Create a SQL Data Warehouse database
+1. Connect to Synapse Analytics Workspace
 
-1. Create SQL Data Warehouse tables
+1. Create tables
 
     > **Note**: If you are not familiar with Transact-SQL, statements are available for the following labs in the following location **Allfiles\Labfiles\Starter\DP-200.5\SQL DW Files**
 
-### Task 1: Install SQL Server Management Studio and connect to a SQL Data Warehouse instance.
+### Task 1: Install SQL Server Management Studio and connect to a Azure Synapse Analytics workspace.
 
 1. In the Azure Portal, in the **dwhservicexx - Firewalls and virtual networks**, in the blade, click on **Properties**
 
@@ -211,19 +200,28 @@ The main tasks for this exercise are as follows:
 
 1. On the windows desktop, click on the **Start**, and type **"SQL Server"** and then click on **MIcrosoft SQL Server Management Studio 17**
 
-1. In the **Connect to Server** dialog box, fill in the following details
-    - Server Name: **dwhservicexx.database.windows.net**
-    - Authentication: **SQL Server Authentication**
-    - Username: **xxsqladmin**
-    - Password: **Pa55w.rd**
+Please make note of your Dedicated SQL endpoint and SQL admin username. You can find it on the **Synapse Workspace** screen:
 
-1. In the **Connect to Server** dialog box, click **Connect** 
+![](assets/markdown-img-paste-20201218070226159.png)
+
+On the same screen you can reset your SQL administrator password:
+![](assets/markdown-img-paste-20201218070530706.png)
+
+1. In the **Connect to Server** dialog box, fill in the following details
+    - Server Name: **<COPY_FROM_PORTAL>**
+    - Authentication: **SQL Server Authentication**
+    - Username: **<COPY_FROM_PORTAL>**
+    - Password: **<PASSWORD_YOU_PROVIDED>**
+
+1. In the **Connect to Server** dialog box, click **Connect**
 
 ### Task 2: Create a SQL Data Warehouse database.
 
-1. In **SQL Server Management Studio**, in Object Explorer, right click **dwhservicexx.database.windows.net** and click on **New Query**. 
+1. In **SQL Server Management Studio**, in Object Explorer, right click **dwhservicexx.database.windows.net** and click on **New Query**.
 
 1. In the query window, create a DataWarehouse database named **DWDB**, with a service objective of DW100 and a maximum size of 1024GB.
+
+> Note that we have already created DWDB table. This example just shows you how you can do the same from T-SQL. Don't actually do this right now.
 
     ```SQL
     CREATE DATABASE DWDB COLLATE SQL_Latin1_General_CP1_CI_AS
@@ -237,13 +235,13 @@ The main tasks for this exercise are as follows:
     > **Note**: The creation of the database takes approximately 2 minutes.
 
 
-### Task 3: Create SQL Data Warehouse tables.
+### Task 3: Create tables.
 
 1. In **SQL Server Management Studio**, in Object Explorer, right click **dwhservicexx.database.windows.net** and click on **New Query**.
 
 1. In **SQL Server Management Studio**, in SQL Editor toolbar, in **Available Databases**, click on **DWDB**.
 
-    >**Note**: If you are unfamiliar with Transact-SQL, there is a script in the Allfiles\Solution\DP-200.5\folder named **Exercise3 Task3Step2 script.sql**. It contains the bulk of the code required to create the tables, but you do have to complete the code by selecting the distribution type to use for each table 
+    >**Note**: If you are unfamiliar with Transact-SQL, there is a script in the Allfiles\Solution\DP-200.5\folder named **Exercise3 Task3Step2 script.sql**. It contains the bulk of the code required to create the tables, but you do have to complete the code by selecting the distribution type to use for each table
 
 1. Create a table named **dbo.Users** with a **clustered columnstore** index with a distribution of **replicate** with the following columns:
 
@@ -295,7 +293,7 @@ The main tasks for this exercise are as follows:
 
 > **Result**: After you completed this exercise, you have installed SQL Server Management Studio to create a data warhouse named DWDB and three tables named Users, Products and FactSales.
 
-## Exercise 4: Using PolyBase to Load Data into Azure Synapse Analytics 
+## Exercise 4: Using PolyBase to Load Data into Azure Synapse Analytics
 
 Estimated Time: 10 minutes
 
@@ -341,7 +339,7 @@ The main tasks for this exercise are as follows:
 
 1. In **SQL Server Management Studio**, highlight both statements and then click on **Execute**.
 
-1. In **SQL Server Management Studio**, in the Query window, type in code that will create an external data source named **AzureStorage** for the Blob storage account and data container created in with a type of **HADOOP** that makes use of the ****AzureStorageCredential**. Note that you should replace **awdlsstudxx** in the location key with your storage account with your initials 
+1. In **SQL Server Management Studio**, in the Query window, type in code that will create an external data source named **AzureStorage** for the Blob storage account and data container created in with a type of **HADOOP** that makes use of the ****AzureStorageCredential**. Note that you should replace **awdlsstudxx** in the location key with your storage account with your initials
 
     ```SQL
 	CREATE EXTERNAL DATA SOURCE AzureStorage
@@ -425,7 +423,7 @@ The main tasks for this exercise are as follows:
     ```
 
 1. In **SQL Server Management Studio**, highlight the statement and then click on **Execute**.
- 
+
 1. In **SQL Server Management Studio**, in the Query window, type in a query that creates statistics on the **DateKey**, **Quarter** and **Month** column.
 
     ```SQL
@@ -439,5 +437,3 @@ The main tasks for this exercise are as follows:
     ```SQL
     SELECT * FROM dbo.Dates;
     ```
-
-
